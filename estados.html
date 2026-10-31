@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Códigos de estado HTTP</title>
+</head>
+<body>
+
+    <h1>Códigos de estado HTTP</h1>
+    <p>
+        Toda resposta de um servidor web traz um <strong>código de estado</strong> (status code): um número
+        de três dígitos que informa ao navegador o resultado da requisição. O primeiro dígito indica a
+        categoria da resposta.
+    </p>
+
+    <h2>Categorias</h2>
+    <table>
+        <caption>As cinco classes de códigos de estado</caption>
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Significado</th>
+                <th>Exemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1xx</td>
+                <td>Informação</td>
+                <td>100 Continue</td>
+            </tr>
+            <tr>
+                <td>2xx</td>
+                <td>Sucesso</td>
+                <td>200 OK</td>
+            </tr>
+            <tr>
+                <td>3xx</td>
+                <td>Redirecionamento</td>
+                <td>301 Moved Permanently</td>
+            </tr>
+            <tr>
+                <td>4xx</td>
+                <td>Erro do cliente</td>
+                <td>404 Not Found</td>
+            </tr>
+            <tr>
+                <td>5xx</td>
+                <td>Erro do servidor</td>
+                <td>500 Internal Server Error</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Códigos mais comuns</h2>
+    <ul>
+        <li><strong>200 OK:</strong> a página foi entregue normalmente.</li>
+        <li><strong>201 Created:</strong> um novo recurso foi criado, por exemplo após enviar um cadastro.</li>
+        <li><strong>301 Moved Permanently:</strong> o endereço mudou de forma definitiva.</li>
+        <li><strong>304 Not Modified:</strong> o recurso não mudou, então o navegador usa a cópia em cache.</li>
+        <li><strong>401 Unauthorized:</strong> é preciso fazer login para acessar.</li>
+        <li><strong>403 Forbidden:</strong> o acesso é proibido mesmo com login.</li>
+        <li><strong>404 Not Found:</strong> a página não existe.</li>
+        <li><strong>500 Internal Server Error:</strong> houve um erro no servidor.</li>
+        <li><strong>503 Service Unavailable:</strong> o servidor está fora do ar ou sobrecarregado.</li>
+    </ul>
+
+    <p>
+        Para entender como os códigos aparecem dentro de uma resposta, veja a página
+        <a href="http.html">HTTP</a>.
+    </p>
+
+    <p><a href="index.html">Voltar para a página inicial</a></p>
+
+</body>
+</html>

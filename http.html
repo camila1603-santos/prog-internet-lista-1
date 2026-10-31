@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP na prática</title>
+</head>
+<body>
+
+    <h1>HTTP na prática: requisição e resposta</h1>
+
+    <h2>O que é o HTTP?</h2>
+    <p>
+        <strong>HTTP</strong> (HyperText Transfer Protocol, ou Protocolo de Transferência de Hipertexto) <i>é o protocolo
+        que define as regras de comunicação entre o navegador e o servidor na Web.</i> Sempre que você
+        digita um endereço, clica em um link ou envia um formulário, o navegador usa o HTTP para pedir
+        algo ao servidor, e o servidor usa o HTTP para responder.
+    </p>
+    <p>
+        O HTTP funciona no modelo de pedido e resposta: o navegador faz um pedido, o servidor processa
+        e devolve uma resposta. Ele é um protocolo sem estado (stateless), ou seja, cada requisição é
+        independente e o servidor não lembra, por conta própria, das requisições anteriores. Para manter
+        informações entre uma página e outra (como um login), são usados recursos extras, como cookies
+        e sessões.
+    </p>
+    <p>
+        <strong><mark>Hoje a maior parte dos sites usa HTTPS, que é o HTTP com uma camada de criptografia (TLS).
+        Isso protege os dados trocados para que não possam ser lidos ou alterados no caminho.</strong></mark>
+    </p>
+
+    <h2>Cliente, servidor, requisição e resposta</h2>
+    <p>
+        <strong>Cliente:</strong> é quem faz o pedido. Na Web, normalmente é o navegador (Chrome, Firefox, Edge),
+        mas também pode ser um aplicativo de celular ou um programa.
+    </p>
+    <p>
+        <strong>Servidor:</strong> é o computador que guarda os recursos (páginas HTML, imagens, arquivos CSS,
+        dados) e fica esperando pedidos para respondê-los.
+    </p>
+    <p>
+        <strong>Requisição (request):</strong> é a mensagem que o cliente envia ao servidor. Ela informa o método
+        (o que o cliente quer fazer), o caminho do recurso, a versão do HTTP, os cabeçalhos
+        (informações extras) e, às vezes, um corpo com dados.
+    </p>
+    <p>
+        <strong>Resposta (response):</strong> é a mensagem que o servidor devolve ao cliente. Ela traz a versão do
+        HTTP, um código de status (dizendo se deu certo ou não), os cabeçalhos e, normalmente,
+        um corpo com o conteúdo pedido, como o HTML da página.
+    </p>
+    <p>
+        <strong><i>Resumindo o fluxo:</strong></i> o usuário acessa um endereço, o navegador (cliente) monta uma requisição
+        e envia ao servidor, o servidor processa e envia a resposta, e o navegador lê essa resposta
+        e mostra a página na tela.
+    </p>
+
+    <h2>Métodos GET e POST</h2>
+    <p>
+        <strong>GET:</strong> usado para buscar (ler) um recurso no servidor, sem alterar nada. É o método usado
+        quando você digita um endereço ou clica em um link. Se houver dados, eles vão na própria URL,
+        depois do sinal de interrogação (por exemplo: /busca?termo=html). Por isso, o GET não deve
+        ser usado para enviar senhas ou dados sensíveis, e as URLs podem ser salvas nos favoritos
+        e no histórico.
+    </p>
+    <p>
+        <strong>POST:</strong> usado para enviar dados ao servidor, geralmente para criar ou processar algo, como
+        enviar um formulário de cadastro, fazer login ou publicar um comentário. Os dados vão no
+        corpo da requisição, e não na URL. Uma requisição POST normalmente altera algo no servidor.
+    </p>
+    <p>
+        <i>Existem outros métodos, como <mark>PUT (atualizar)</mark>, <mark>DELETE (apagar)</mark> e <mark>PATCH (atualizar parte de</mark>
+        um recurso), mas GET e POST são os mais usados em páginas web comuns.</i>
+    </p>
+
+    <h2>Exemplo de requisição HTTP</h2>
+    <p>Requisição GET feita pelo navegador para buscar a página inicial de um site:</p>
+
+    <table>
+        <tr>
+            <th>Requisição</th>
+            <th>Exemplo</th>
+        </tr>
+        <tr>
+            <td>Método</td>
+            <td>GET</td>
+        </tr>
+        <tr>
+            <td>Caminho do recurso</td>
+            <td>/index.html</td>
+        </tr>
+        <tr>
+            <td>Versão do HTTP</td>
+            <td>HTTP/1.1</td>
+        </tr>
+        <tr>
+            <td>Cabeçalhos</td>
+            <td>Host, User-Agent, Accept, Accept-Language...</td>
+        </tr>
+    </table>
+
+    <p>
+        A primeira linha tem o método (GET), o caminho do recurso (/index.html) e a versão do
+        protocolo (HTTP/1.1). As linhas seguintes são os cabeçalhos: Host indica o site,
+        User-Agent identifica o navegador, Accept diz o tipo de conteúdo aceito e
+        Accept-Language diz o idioma preferido.
+    </p>
+
+    <p>Requisição POST enviando os dados de um formulário de login:</p>
+    <table>
+        <tr>
+            <th>Requisição</th>
+            <th>Exemplo</th>
+        </tr>
+        <tr>
+            <td>Método</td>
+            <td>POST</td>
+        </tr>
+        <tr>
+            <td>Caminho do recurso</td>
+            <td>/login</td>
+        </tr>
+        <tr>
+            <td>Versão do HTTP</td>
+            <td>HTTP/1.1</td>
+        </tr>
+        <tr>
+            <td>Cabeçalhos</td>
+            <td>Host, Content-Type, Content-Length...</td>
+        </tr>
+        <tr>
+            <td>Corpo</td>
+            <td>usuario=camila&senha=minhasenha</td>
+        </tr>
+    </table>
+    
+    <p>
+        Aqui os dados vão no corpo, depois de uma linha em branco que separa os cabeçalhos
+        do corpo. Content-Type diz o formato dos dados e Content-Length diz o tamanho do corpo
+        em bytes.
+    </p>
+
+    <h2>Exemplo de resposta HTTP</h2>
+    <p>Resposta do servidor para a requisição GET acima:</p>
+    <p>
+        HTTP/1.1 200 OK<br>
+        Date: Sat, 31 Oct 2026 14:00:00 GMT<br>
+        Server: Apache<br>
+        Content-Type: text/html; charset=UTF-8<br>
+        Content-Length: 120
+    </p>
+    <p>
+        &lt;!DOCTYPE html&gt;<br>
+        &lt;html&gt;<br>
+        &lt;head&gt;&lt;title&gt;Exemplo&lt;/title&gt;&lt;/head&gt;<br>
+        &lt;body&gt;&lt;h1&gt;Olá, mundo!&lt;/h1&gt;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </p>
+    <p>
+        A primeira linha (linha de status) tem a versão do protocolo (HTTP/1.1), o código de status
+        (200) e uma mensagem curta (OK). Depois vêm os cabeçalhos: Date é a data da resposta,
+        Server identifica o servidor, Content-Type diz que o conteúdo é HTML e Content-Length
+        é o tamanho do corpo. Após a linha em branco vem o corpo, com o HTML que o navegador
+        vai mostrar.
+    </p>
+
+    <h2>Códigos de status HTTP</h2>
+    <p>
+        O código de status é um número de três dígitos que indica o resultado da requisição.
+        O primeiro dígito mostra a categoria:
+        1xx = informação, 2xx = sucesso, 3xx = redirecionamento,
+        4xx = erro do cliente, 5xx = erro do servidor.
+    </p>
+
+    <p>
+        <strong>200 OK:</strong> a requisição deu certo e o servidor devolveu o que foi pedido. É a resposta
+        mais comum, por exemplo quando uma página abre normalmente.
+    </p>
+    <p>
+        <strong>301 Moved Permanently:</strong> o recurso mudou de endereço para sempre. O servidor informa o
+        novo endereço no cabeçalho Location e o navegador vai até ele automaticamente.
+        Usado, por exemplo, quando um site troca de domínio.
+    </p>
+    <p>
+        <strong>302 Found:</strong> o recurso está temporariamente em outro endereço. O navegador é redirecionado,
+        mas o endereço original continua valendo. Usado, por exemplo, para mandar o usuário para
+        a tela de login e depois de volta.
+    </p>
+    <p>
+        <strong>400 Bad Request:</strong> o servidor não entendeu a requisição porque ela está mal formada ou
+        com dados inválidos, como um formulário enviado com informações no formato errado.
+    </p>
+    <p>
+        <strong>403 Forbidden:</strong> o servidor entendeu a requisição, mas se recusa a atender porque o cliente
+        não tem permissão para acessar aquele recurso, como uma área restrita a administradores.
+    </p>
+    <p>
+        <strong>404 Not Found:</strong> o recurso pedido não existe no servidor. Acontece quando a URL está errada
+        ou a página foi removida.
+    </p>
+    <p>
+        <strong>500 Internal Server Error:</strong> aconteceu um erro inesperado no servidor e ele não conseguiu
+        completar a requisição. O problema não é do usuário, e sim do servidor, como um erro no
+        código do site.
+    </p>
+
+    <h2>Conclusão</h2>
+    <p>
+        O HTTP é a base da comunicação na Web. Toda página que abrimos é resultado de uma troca de
+        mensagens: o cliente envia uma requisição dizendo o que quer, e o servidor devolve uma
+        resposta com um código de status e o conteúdo. Entender esse processo ajuda a desenvolver
+        sites e a descobrir o que deu errado quando algo não funciona.
+    </p>
+    <hr>
+
+    <h2>Referências</h2>
+    <p>
+        ANTHROPIC. Claude Opus 5.5 (Claude Code). Modelo de inteligência artificial.
+        Disponível em: https://claude.ai. Acesso em: 31 out. 2026.
+    </p>
+
+    <h2>Declaração de uso de inteligência artificial</h2>
+    <p>
+        O conteúdo textual desta página foi elaborado com o auxílio da ferramenta de inteligência
+        artificial Claude (Anthropic), usada apenas para redigir as explicações sobre o protocolo HTTP.
+        Toda a estrutura e o código HTML da página foram desenvolvidos pela autora.
+    </p>
+
+    <p><a href="index.html">Voltar para a página inicial</a></p>
+
+</body>
+</html>
